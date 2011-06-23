@@ -28,19 +28,26 @@ else
 endif
 
 
-syntax match  hbsError          '}}}\?'
-syntax match  hbsInsideError    '{{[{#<>=!\/]\?' containedin=@hbsInside
+syn match   hbsError            /}}}\?/
+syn match   hbsInsideError      /{{[{#<>=!\/]\?/   containedin=@hbsInside
 
-syntax region hbsVariable       matchgroup=hbsMarker start=/{{/ end=/}}/     containedin=@htmlHbsContainer 
-syntax region hbsUnescape       matchgroup=hbsMarker start=/{{{/ end=/}}}/   containedin=@htmlHbsContainer
-syntax region hbsSection        matchgroup=hbsMarker start='{{[#/]' end=/}}/ containedin=@htmlHbsContainer
-syntax region hbsPartial        matchgroup=hbsMarker start=/{{[<>]/ end=/}}/
-syntax region hbsMarkerSet      matchgroup=hbsMarker start=/{{=/ end=/=}}/
-syntax region hbsComment        start=/{{!/ end=/}}/ contains=Todo containedin=htmlHead
+syn cluster htmlHbsContainer   add=htmlHead,htmlTitle,htmlString,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
+syn region  hbsInside          start=/{{/ end=/}}/  keepend transparent containedin=@htmlHbsContainer
 
-" Clustering
-syntax cluster hbsInside        add=hbsVariable,hbsVariableUnescape,hbsSection,hbsPartial,hbsMarkerSet
-syntax cluster htmlHbsContainer add=htmlHead,htmlTitle,htmlString,htmlH1,htmlH2,htmlH3,htmlH4,htmlH5,htmlH6
+syn match   hbsHandlebars      "{{\|}}"                                 containedin=hbsInside
+syn match   hbsUnescape        "{{{\|}}}"                               containedin=hbsInside
+syn match   hbsOperators       "=\|\.\|/"                               containedin=hbsInside
+
+syn region  hbsSection         start="{{[#/]"lc=2 end=/}}/me=e-2      containedin=hbsInside
+syn region  hbsPartial         start=/{{[<>]/lc=2 end=/}}/me=e-2        containedin=hbsInside
+syn region  hbsMarkerSet       start=/{{=/lc=2    end=/=}}/me=e-2       containedin=hbsInside
+
+syn region  hbsComment         start=/!/            end=/}}/me=e-2      containedin=htmlHead contains=Todo
+syn region  hbsQString         start=/'/ skip=/\\'/ end=/'/             containedin=hbsInside
+syn region  hbsDQString        start=/"/ skip=/\\"/ end=/"/             containedin=hbsInside
+
+syn match   hbsConditionals    "\([/#]\(if\|unless\)\|else\)"           containedin=hbsInside
+syn match   hbsHelpers         "[/#]\(with\|each\)"                     containedin=hbsInside
 
 
 " Define the default highlighting.
@@ -54,16 +61,23 @@ if version >= 508 || !exists("did_lisp_syntax_inits")
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HtmlHiLink hbsVariable    Number
-  HtmlHiLink hbsUnescape    Number
-  HtmlHiLink hbsPartial     Number
-  HtmlHiLink hbsSection     Number
-  HtmlHiLink hbsMarkerSet   Number
+  HtmlHiLink hbsError         Error
+  HtmlHiLink hbsInsideError   Error
 
-  HtmlHiLink hbsComment     Comment
-  HtmlHiLink hbsMarker      Identifier
-  HtmlHiLink hbsError       Error
-  HtmlHiLink hbsInsideError Error
+  HtmlHiLink hbsHandlebars    Identifier
+  HtmlHiLink hbsUnescape      Special
+  HtmlHiLink hbsOperators     Operator
+
+  HtmlHiLink hbsConditionals  Conditional
+  HtmlHiLink hbsHelpers       Repeat
+
+  HtmlHiLink hbsSection       Number
+  HtmlHiLink hbsPartial       Include
+  HtmlHiLink hbsMarkerSet     Number
+
+  HtmlHiLink hbsComment       Comment
+  HtmlHiLink hbsQString       String
+  HtmlHiLink hbsDQString      String
 
   delcommand HiLink
 endif

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      {{title}}
-    </title>
+    <title>{{title}}</title>
     {{!}}
   </head>
   <body>
@@ -25,7 +23,7 @@
       <li>{{ name }}</li>
       {{/repo}}
 
-      {{{ escaped }}}
+      {{{ unescaped }}}
 
       {{! <> this is a comment TODO:}}
       
@@ -46,10 +44,10 @@
       {{#person}}{{name}} - {{../company/name}}{{/person}}
 
       Strings
-      <ul>{{#posts}}<li>{{{link_to "Post" this}}}</li></ul>
+      <ul>{{#posts}}<li>{{{link_to "Post" this}}}</li>{{/posts}}</ul>
 
       Hash
-      {{link "See more..." href=story.url class="story"}}
+      {{{link "See more..." href=story.url class="story"}}}
 
       Helpers
       {{#with story}}<p>{{{body}}}</p>{{/with}}
