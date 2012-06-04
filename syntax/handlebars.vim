@@ -38,7 +38,7 @@ syn match   hbsHandlebars      "{{\|}}"                                 containe
 syn match   hbsUnescape        "{{{\|}}}"                               containedin=hbsInside
 syn match   hbsOperators       "=\|\.\|/"                               containedin=hbsInside
 
-syn region  hbsSection         start="{{[#/]"lc=2 end=/}}/me=e-2      containedin=hbsInside
+syn region  hbsSection         start="{{[#/]"lc=2 end=/}}/me=e-2        containedin=hbsInside
 syn region  hbsPartial         start=/{{[<>]/lc=2 end=/}}/me=e-2        containedin=hbsInside
 syn region  hbsMarkerSet       start=/{{=/lc=2    end=/=}}/me=e-2       containedin=hbsInside
 
