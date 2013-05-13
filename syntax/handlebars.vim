@@ -37,7 +37,6 @@ syn region  hbsMarkerSet       start=/{{=/lc=2    end=/=}}/me=e-2       containe
 
 syn region  hbsComment         start=/{{!/rs=s+2    end=/}}/re=e-2      containedin=htmlHead contains=hbsTodo,Todo
 syn region  hbsBlockComment    start=/{{!--/rs=s+2  end=/--}}/re=e-2    containedin=htmlHead contains=hbsTodo,Todo
-syn region  hbsQString         start=/'/ skip=/\\'/ end=/'/             containedin=hbsInside
 syn region  hbsDQString        start=/"/ skip=/\\"/ end=/"/             containedin=hbsInside
 
 syn match   hbsConditionals    "\([/#]\(if\|unless\)\|else\)"           containedin=hbsInside
