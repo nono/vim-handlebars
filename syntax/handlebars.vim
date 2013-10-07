@@ -43,6 +43,17 @@ syn region  hbsDQString        start=/"/ skip=/\\"/ end=/"/             containe
 syn match   hbsConditionals    "\([/#]\(if\|unless\)\|else\)"           containedin=hbsInside
 syn match   hbsHelpers         "[/#]\(with\|each\)"                     containedin=hbsInside
 
+syn cluster allHbsItems        add=hbsTodo,hbsError,hbsInsideError,hbsInside,hbsHandlebars,
+\                                  hbsUnescape,hbsOperators,hbsSection,hbsPartial,hbsMarkerSet,
+\                                  hbsComment,hbsBlockComment,hbsQString,hbsDQString,hbsConditionals,
+\                                  hbsHelpers,hbsPartial,hbsMarkerSet,hbsComment,hbsBlockComment,
+\                                  hbsQString,hbsDQString,hbsConditionals,hbsHelpers
+
+syn cluster htmlAdditional     add=htmlTag,htmlEndTag,htmlTagName,htmlSpecialChar
+
+syn region  hbsScriptTemplate  start=+<script [^>]*type *=[^>]*text/x-handlebars-template[^>]*>+
+\                              end=+</script>+me=s-1 keepend contains=@htmlHbsContainer,@allHbsItems,@htmlAdditional
+
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
