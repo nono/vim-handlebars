@@ -19,7 +19,7 @@ ru! syntax/html.vim
 unlet b:current_syntax
 
 
-syn region  hbsInside          start=/{{/ end=/}}/ transparent
+syn region  hbsInside          start=/{{/ end=/}}/ keepend
 
 syn keyword hbsTodo            TODO FIXME XXX contained
 
@@ -27,7 +27,7 @@ syn match   hbsError           /}}}\?/
 syn match   hbsInsideError     /{{[{#<>=!\/]\?/                         contained containedin=@hbsInside
 
 syn match   hbsHandlebars      "{{\|}}"                                 contained containedin=hbsInside
-syn match   hbsUnescape        "{{{\|}}}"                               contained containedin=hbsInside
+syn match   hbsUnescape        "{{{\|}}}"                               contained containedin=hbsInside extend
 syn match   hbsOperators       "=\|\.\|/"                               contained containedin=hbsInside
 
 syn region  hbsSection         start="{{[#/]"lc=2 end=/}}/me=e-2        contained containedin=hbsInside
@@ -35,7 +35,7 @@ syn region  hbsPartial         start=/{{[<>]/lc=2 end=/}}/me=e-2        containe
 syn region  hbsMarkerSet       start=/{{=/lc=2    end=/=}}/me=e-2       contained containedin=hbsInside
 
 syn region  hbsComment         start=/{{!/rs=s+2    end=/}}/re=e-2      contained containedin=hbsInside contains=hbsTodo,Todo
-syn region  hbsBlockComment    start=/{{!--/rs=s+2  end=/--}}/re=e-2    contained containedin=hbsInside contains=hbsTodo,Todo
+syn region  hbsBlockComment    start=/{{!--/rs=s+2  end=/--}}/re=e-2    contained containedin=hbsInside contains=hbsTodo,Todo extend
 syn region  hbsQString         start=/'/ skip=/\\'/ end=/'/             contained containedin=hbsInside
 syn region  hbsDQString        start=/"/ skip=/\\"/ end=/"/             contained containedin=hbsInside
 
