@@ -1,6 +1,9 @@
 Vim plugin for Handlebars
 =========================
 
+Deprecation
+-----------
+
 **Important**: this plugin is deprecated, you should use [mustache/vim-mode](https://github.com/mustache/vim-mode) instead!
 
 About
